@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { bookingApi } from '../lib/api';
 
 const STATUS_COLORS = {
@@ -221,6 +221,21 @@ export default function AdminDashboard() {
           >
             Logout
           </button>
+        </div>
+      </div>
+
+      {/* Nav tabs */}
+      <div className="bg-white border-b border-gray-200 px-6">
+        <div className="max-w-6xl mx-auto flex gap-1">
+          <span className="px-4 py-3 text-sm font-medium text-[#2d6a4f] border-b-2 border-[#2d6a4f]">
+            Bookings
+          </span>
+          <Link
+            to="/admin/enrolled"
+            className="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300 transition-colors"
+          >
+            Enrolled Users
+          </Link>
         </div>
       </div>
 

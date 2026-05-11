@@ -3,6 +3,7 @@ import BookingPage from './pages/BookingPage';
 import ConfirmationPage from './pages/ConfirmationPage';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import EnrolledUsers from './pages/EnrolledUsers';
 
 function PrivateRoute({ children }) {
   return localStorage.getItem('adminToken') ? children : <Navigate to="/admin/login" />;
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/confirmation" element={<ConfirmationPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+        <Route path="/admin/enrolled" element={<PrivateRoute><EnrolledUsers /></PrivateRoute>} />
       </Routes>
     </BrowserRouter>
   );
