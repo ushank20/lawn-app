@@ -27,6 +27,7 @@ export default function EnrolledUsers() {
   const [users, setUsers] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
   const [serviceFilter, setServiceFilter] = useState('all');
 
@@ -46,6 +47,8 @@ export default function EnrolledUsers() {
         if (err.response?.status === 401) {
           localStorage.removeItem('adminToken');
           navigate('/admin/login');
+        } else {
+          setError(err.response?.data?.error || err.message || 'Failed to load users.');
         }
       })
       .finally(() => setLoading(false));
@@ -136,6 +139,10 @@ export default function EnrolledUsers() {
         {/* Table */}
         {loading ? (
           <div className="text-center py-12 text-gray-500">Loading...</div>
+        ) : error ? (
+          <div className="text-center py-12 text-red-500 bg-white rounded-xl border border-red-200">
+            {error}
+          </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-12 text-gray-500 bg-white rounded-xl border border-gray-200">
             No enrolled users found.
