@@ -27,10 +27,13 @@ async function main() {
       notes                TEXT,
       status               TEXT NOT NULL DEFAULT 'pending',
       admin_notes          TEXT,
+      community_name       TEXT,
       created_at           TIMESTAMPTZ NOT NULL DEFAULT now(),
       updated_at           TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `);
+
+  await pool.query(`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS community_name TEXT`);
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS admins (

@@ -35,6 +35,7 @@ export default function BookingPage() {
   const [form, setForm] = useState({
     firstName: '', lastName: '', phone: '', email: '',
     streetAddress: '', city: '', state: '', zipCode: '',
+    communityName: '',
     lawnMowing: false, lawnMowingDate: '',
     dethatching: false, dethatchingDate: '',
     sprinklerBlowout: false, sprinklerBlowoutDate: '',
@@ -213,6 +214,25 @@ export default function BookingPage() {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2d6a4f]"
                 required />
             </div>
+          </div>
+        </section>
+
+        {/* Section: Community */}
+        <section>
+          <h2 className="text-xl font-semibold text-gray-800 mb-5">Community</h2>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Community name <span className="text-gray-400 font-normal">(optional)</span></label>
+            <select
+              name="communityName"
+              value={form.communityName}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2d6a4f] bg-white"
+            >
+              <option value="">— Select your community —</option>
+              <option value="Elm Creek">Elm Creek</option>
+              <option value="Tavera">Tavera</option>
+              <option value="Bonair">Bonair</option>
+            </select>
           </div>
         </section>
 

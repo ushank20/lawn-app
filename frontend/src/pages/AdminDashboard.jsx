@@ -81,6 +81,11 @@ function BookingCard({ booking, onUpdate }) {
       <p className="text-sm text-gray-600">
         {booking.streetAddress}, {booking.city}, {booking.state} {booking.zipCode}
       </p>
+      {booking.communityName && (
+        <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded-full inline-block">
+          {booking.communityName}
+        </span>
+      )}
 
       {/* Service pills */}
       <div className="flex flex-wrap gap-2">

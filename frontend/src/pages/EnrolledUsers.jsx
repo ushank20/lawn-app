@@ -30,6 +30,9 @@ export default function EnrolledUsers() {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
   const [serviceFilter, setServiceFilter] = useState('all');
+  const [communityFilter, setCommunityFilter] = useState('all');
+
+  const COMMUNITIES = ['Elm Creek', 'Tavera', 'Bonair'];
 
   function handleLogout() {
     localStorage.removeItem('adminToken');
@@ -68,8 +71,11 @@ export default function EnrolledUsers() {
     if (serviceFilter !== 'all') {
       result = result.filter(u => u[serviceFilter]);
     }
+    if (communityFilter !== 'all') {
+      result = result.filter(u => u.communityName === communityFilter);
+    }
     setFiltered(result);
-  }, [search, serviceFilter, users]);
+  }, [search, serviceFilter, communityFilter, users]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -131,6 +137,17 @@ export default function EnrolledUsers() {
               <option value="sprinklerBlowout">Sprinkler Blowout</option>
             </select>
           </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Community</label>
+            <select
+              value={communityFilter}
+              onChange={e => setCommunityFilter(e.target.value)}
+              className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2d6a4f]"
+            >
+              <option value="all">All communities</option>
+              {COMMUNITIES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
           <p className="text-sm text-gray-500 self-end pb-2">
             {filtered.length} user{filtered.length !== 1 ? 's' : ''}
           </p>
@@ -156,6 +173,7 @@ export default function EnrolledUsers() {
                   <tr className="bg-gray-50 border-b border-gray-200 text-left">
                     <th className="px-4 py-3 font-semibold text-gray-700">Name</th>
                     <th className="px-4 py-3 font-semibold text-gray-700">Contact</th>
+                    <th className="px-4 py-3 font-semibold text-gray-700">Community</th>
                     <th className="px-4 py-3 font-semibold text-gray-700">City</th>
                     <th className="px-4 py-3 font-semibold text-gray-700">Services</th>
                     <th className="px-4 py-3 font-semibold text-gray-700">Status</th>
@@ -171,6 +189,11 @@ export default function EnrolledUsers() {
                       <td className="px-4 py-3 text-gray-600">
                         <a href={`tel:${u.phone}`} className="text-[#2d6a4f] hover:underline block">{u.phone}</a>
                         {u.email && <span className="text-gray-500 text-xs">{u.email}</span>}
+                      </td>
+                      <td className="px-4 py-3 text-gray-600">
+                        {u.communityName ? (
+                          <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded-full">{u.communityName}</span>
+                        ) : <span className="text-gray-400">—</span>}
                       </td>
                       <td className="px-4 py-3 text-gray-600">
                         {u.city}, {u.state}
@@ -210,6 +233,9 @@ export default function EnrolledUsers() {
                   </div>
                   <a href={`tel:${u.phone}`} className="text-sm text-[#2d6a4f] hover:underline block">{u.phone}</a>
                   {u.email && <p className="text-xs text-gray-500">{u.email}</p>}
+                  {u.communityName && (
+                    <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded-full inline-block">{u.communityName}</span>
+                  )}
                   <p className="text-sm text-gray-600">{u.city}, {u.state}</p>
                   <div className="flex flex-wrap gap-1">
                     {Object.entries(SERVICE_LABELS).filter(([k]) => u[k]).map(([k, label]) => (

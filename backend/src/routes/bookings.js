@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
       lawnMowing, lawnMowingDate,
       dethatching, dethatchingDate,
       sprinklerBlowout, sprinklerBlowoutDate,
-      paymentMethod, notes,
+      paymentMethod, notes, communityName,
     } = req.body;
 
     if (!firstName || !lastName || !phone || !streetAddress || !city || !state || !zipCode) {
@@ -48,6 +48,7 @@ router.post('/', async (req, res) => {
       sprinklerBlowoutDate: sprinklerBlowout ? new Date(sprinklerBlowoutDate) : null,
       paymentMethod,
       notes: notes || null,
+      communityName: communityName || null,
     });
 
     sendBookingConfirmation(booking).catch(console.error);

@@ -27,6 +27,7 @@ function row2booking(r) {
     notes: r.notes,
     status: r.status,
     adminNotes: r.admin_notes,
+    communityName: r.community_name,
     createdAt: r.created_at,
     updatedAt: r.updated_at,
   };
@@ -55,10 +56,10 @@ async function createBooking(data) {
       lawn_mowing, lawn_mowing_date,
       dethatching, dethatching_date,
       sprinkler_blowout, sprinkler_blowout_date,
-      payment_method, notes, status,
+      payment_method, notes, status, community_name,
       created_at, updated_at
     ) VALUES (
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$19
+      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$20
     ) RETURNING *`,
     [
       id,
@@ -67,7 +68,7 @@ async function createBooking(data) {
       data.lawnMowing, data.lawnMowingDate ?? null,
       data.dethatching, data.dethatchingDate ?? null,
       data.sprinklerBlowout, data.sprinklerBlowoutDate ?? null,
-      data.paymentMethod, data.notes ?? null, 'pending',
+      data.paymentMethod, data.notes ?? null, 'pending', data.communityName ?? null,
       now,
     ]
   );
